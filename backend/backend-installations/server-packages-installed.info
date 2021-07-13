@@ -1,0 +1,9 @@
+-- create command node project
+npm init
+
+
+-- package instalacions
+npm install express
+npm install body-parser
+npm install sqlite3
+npm install md5
