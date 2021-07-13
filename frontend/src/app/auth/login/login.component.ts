@@ -1,12 +1,17 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { ErrorControl } from 'src/app/config/ErrorModule';
 import { User } from 'src/app/model/User';
 import { UserServiceProvider } from 'src/app/providers/user.provider';
 
+declare function showMessage(message:string,type:string);
+
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss'],
+  providers:[UserServiceProvider]
 })
 export class LoginComponent {
 
@@ -16,7 +21,9 @@ export class LoginComponent {
   public passwordErrorMessage: string = "";
   public loginErrorMessage: string = "";
 
-  constructor(private userProvider: UserServiceProvider) { }
+  constructor(private userProvider: UserServiceProvider, private router:Router) {
+    showMessage("testing",'INFO');
+  }
 
   validateUser(): void {
     if (!this.user.username) {
@@ -41,8 +48,8 @@ export class LoginComponent {
   login(): void {
     this.userProvider.login(this.user).subscribe(
       data => {
-        console.log(data);
         sessionStorage.setItem('user_viewanalyzer',data);
+        this.router.navigate(['/dashboard']);
       },
       err => {
         this.loginErrorMessage = ErrorControl.login.login_failed;

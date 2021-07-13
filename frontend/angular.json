@@ -30,9 +30,13 @@
             "styles": [
               "src/styles.scss",
               "src/assets/css/fonts_loader.scss",
+              "src/assets/css/spammer-messages.scss",
               "src/assets/css/main.scss"
             ],
-            "scripts": []
+            "scripts": [
+              "src/assets/js/jquery-3.6.0.min.js",
+              "src/assets/js/spammer-messages.js"
+            ]
           },
           "configurations": {
             "production": {

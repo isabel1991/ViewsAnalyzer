@@ -11,7 +11,7 @@ function DBControllerClass() {
     this.user = {
         login: function (database, username, password) {
             const params = [username, password];
-            console.log("llega aqui");
+
             return (new Promise(function (resolve, reject) {
                 DB_DAO.user.login(database, params).then((user) => {
                     console.log("user",user);

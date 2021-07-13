@@ -1,11 +1,9 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { MessagesComponent } from './messages/messages.component';
 import { PagesComponent } from './pages.component';
-import { ProfileComponent } from './profile/profile.component';
-import { SettingsComponent } from './settings/settings.component';
-import { TempComponent } from './temp/temp.component';
+import { UserManagementComponent } from './user-management/user-management.component';
+import { ViewManagementComponent } from './view-management/view-management.component';
 
 const routes: Routes = [
     {
@@ -13,12 +11,8 @@ const routes: Routes = [
         component: PagesComponent,
         children: [
             { path: 'dashboard', component: DashboardComponent, data: {} },
-            { path: 'profile', component: ProfileComponent, data: {} },
-            { path: 'messages', component: MessagesComponent, data: {} },
-            { path: 'settings', component: SettingsComponent, data: {} },
-
-
-            { path: 'temporal', component: TempComponent, data: {} },
+            { path: 'views', component: ViewManagementComponent, data: {} },
+            { path: 'users', component: UserManagementComponent, data: {} },
         ]
     }
 ];

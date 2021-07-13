@@ -30,7 +30,7 @@ app.listen(config.PORT, () => {
 
 
 app.post("/api/user/login", jsonParser, (req, res) => {
-    console.log("request received");
+
     try {
         const params = req.body;
 
