@@ -1,0 +1,10 @@
+[plugins instalados]
+
+
+* JQuery pluging *
+    npm install jquery --save
+    npm install -D @types/jquery
+
+* graphics pluging *
+    npm install --save ng2-charts
+    npm install --save chart.js
