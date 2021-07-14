@@ -1,1 +1,8 @@
-<p>dashboard works!</p>
+<div id="dashboard">
+    <div class="main-panel" *ngIf="userLogged">
+        <div class="panel">Views Builder</div>
+        <div class="panel">Revisar los datos de la Base de Datos</div>
+        <div class="panel" *ngIf="userLogged.isAdmin">Gestión de usuarios</div>
+        <div class="panel">Cerrar Sesión</div>
+    </div>
+</div>

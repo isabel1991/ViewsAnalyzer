@@ -35,6 +35,7 @@
             ],
             "scripts": [
               "src/assets/js/jquery-3.6.0.min.js",
+              "src/assets/js/general.js",
               "src/assets/js/spammer-messages.js"
             ]
           },

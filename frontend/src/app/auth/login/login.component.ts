@@ -46,9 +46,12 @@ export class LoginComponent {
   }
 
   login(): void {
+    if(!this.user.isValid()) {
+      return;
+    }
     this.userProvider.login(this.user).subscribe(
       data => {
-        sessionStorage.setItem('user_viewanalyzer',data);
+        sessionStorage.setItem('view-analyzer_user-data',JSON.stringify(data));
         this.router.navigate(['/dashboard']);
       },
       err => {

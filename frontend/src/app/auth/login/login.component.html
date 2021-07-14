@@ -12,14 +12,14 @@
         <div class="form-input-container">
             <div class="input-container">
                 <input id="password" type="password" [(ngModel)]="user.password" (focusin)="resetErrorPassword()"
-                    (focusout)="validatePassword()" error-content="passwordErrorMessage" required>
+                    (focusout)="validatePassword()" (keyup.Enter)="login()" error-content="passwordErrorMessage" required>
                 <label for="password">Contraseña</label>
             </div>
             <div class="errorMessage" *ngIf="passwordErrorMessage">{{passwordErrorMessage}}</div>
         </div>
         <div class="form-button-container">
             <div class="button-container">
-                <button class="button--default" [disabled]="!(user.username && user.password)"
+                <button class="button--default" [disabled]="!user.isValid()"
                 (click)="login()">Acceder</button>
             </div>
             <div class="errorMessage" *ngIf="loginErrorMessage">{{loginErrorMessage}}</div>
