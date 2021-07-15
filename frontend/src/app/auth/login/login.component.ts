@@ -22,7 +22,7 @@ export class LoginComponent {
   public loginErrorMessage: string = "";
 
   constructor(private userProvider: UserServiceProvider, private router:Router) {
-    showMessage("testing",'INFO');
+    // showMessage("testing",'INFO');
   }
 
   validateUser(): void {
@@ -49,12 +49,15 @@ export class LoginComponent {
     if(!this.user.isValid()) {
       return;
     }
+
     this.userProvider.login(this.user).subscribe(
       data => {
         sessionStorage.setItem('view-analyzer_user-data',JSON.stringify(data));
+        this.loginErrorMessage = "";
         this.router.navigate(['/dashboard']);
       },
-      err => {
+      err => {        
+        this.user.password = "";
         this.loginErrorMessage = ErrorControl.login.login_failed;
       }
     );

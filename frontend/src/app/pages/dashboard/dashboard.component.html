@@ -1,8 +1,20 @@
 <div id="dashboard">
     <div class="main-panel" *ngIf="userLogged">
-        <div class="panel">Views Builder</div>
-        <div class="panel">Revisar los datos de la Base de Datos</div>
-        <div class="panel" *ngIf="userLogged.isAdmin">Gestión de usuarios</div>
-        <div class="panel">Cerrar Sesión</div>
+        <div class="panel" (click)="panelAction(0)">
+            <div class="icon builder"></div>
+            <div class="text">Views Builder</div>
+        </div>
+        <div class="panel" (click)="panelAction(1)">
+            <div class="icon database"></div>
+            <div class="text">Revisar datos de Base de Datos</div>
+        </div>
+        <div class="panel" (click)="panelAction(2)" *ngIf="userLogged.isAdmin">
+            <div class="icon user-management"></div>
+            <div class="text">Gestión de usuarios</div>
+        </div>
+        <div class="panel" (click)="userProvider.logout(true)">
+            <div class="icon logout"></div>
+            <div class="text">Cerrar Sesión</div>
+        </div>
     </div>
 </div>

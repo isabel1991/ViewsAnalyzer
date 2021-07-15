@@ -1,1 +1,22 @@
-<p>view-management works!</p>
+<div class="view-builder">
+    <div class="view-list">
+        <input type="checkbox" checked>
+        <div class="title">Listado de ventanas existentes:</div>
+        <div class="table-container">
+            <div class="datatable" *ngIf="viewList">
+                <div class="row" *ngFor="let view of viewList">
+                    <div class="fields">
+                        <div class="field"></div>
+                        <div class="field"></div>
+                        <div class="field"></div>
+                        <div class="field"></div>
+                        <div class="field"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="no-views" *ngIf="!viewList">No existen actualmente vistas en la base de datos</div>
+        </div>
+        <div class="view-options"></div>
+    </div>
+    <!-- <view-simulator></view-simulator> -->
+</div>

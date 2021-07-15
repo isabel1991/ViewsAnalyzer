@@ -13,15 +13,6 @@ let jsonParser = bodyParser.json();
 let app = express();
 let DBController = new DDBBController(db);
 
-
-// app.use((req, res, next) => {
-//     res.header('Access-Control-Allow-Origin', '*');
-//     res.header('Access-Control-Allow-Headers', 'Authorization, X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Request-Method');
-//     res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
-//     res.header('Allow', 'GET, POST, OPTIONS, PUT, DELETE');
-//     next();
-// });
-
 app.use(cors());
 
 app.listen(config.PORT, () => {
@@ -45,6 +36,44 @@ app.post("/api/user/login", jsonParser, (req, res) => {
     }
     catch (error) {
         console.log("[main error /api/user/login/] ",error);
+        res.status(400).json({ "error": error });
+    }
+});
+
+app.get("/api/view/getAll", jsonParser, (req, res) => {
+
+    try {
+        DBController.view.getAll(db).then((data) => {
+            res.status(200).json(data);
+            
+        }).catch((error) => {
+            console.log("[error /api/view/getAll] ",error);
+            res.status(400).json(error);
+            
+        });
+    }
+    catch (error) {
+        console.log("[main error /api/view/getAll] ",error);
+        res.status(400).json({ "error": error });
+    }
+});
+
+app.get("/api/table/getColumns", jsonParser, (req, res) => {
+
+    try {
+        const params = req.body;
+
+        DBController.table.getColumns(db,params.table).then((data) => {
+            res.status(200).json(data);
+            
+        }).catch((error) => {
+            console.log("[error /api/table/getColumns] ",error);
+            res.status(400).json(error);
+            
+        });
+    }
+    catch (error) {
+        console.log("[main error /api/table/getColumns] ",error);
         res.status(400).json({ "error": error });
     }
 });

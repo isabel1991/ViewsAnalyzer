@@ -8,8 +8,6 @@ import { UserService } from "../services/user.service";
 })
 
 export class UserServiceProvider {
-    private singleListener: EventEmitter<User> = new EventEmitter();
-    private multipleListener: EventEmitter<User> = new EventEmitter();
 
     constructor(private userService: UserService, private router: Router) { }
 
@@ -18,11 +16,18 @@ export class UserServiceProvider {
             "username": user.username,
             "password": user.password
         }
+
+        const listener: EventEmitter<User> = new EventEmitter();
+
         this.userService.login(params).subscribe(
-            data => this.singleListener.emit(data),
-            err => this.singleListener.error(err)
+            data => {                
+                listener.emit(data)
+            },
+            err => {
+                listener.error(err);
+            }
         );
-        return this.singleListener;
+        return listener;
     }
 
     logout(redirectToLogin: boolean = false): void {
@@ -43,17 +48,17 @@ export class UserServiceProvider {
     }
 
     register(): EventEmitter<any> {
-
-        return this.singleListener;
+        const listener: EventEmitter<User> = new EventEmitter();
+        return listener;
     }
 
     update(): EventEmitter<any> {
-
-        return this.singleListener;
+        const listener: EventEmitter<User> = new EventEmitter();
+        return listener;
     }
 
     upgradeStatus(): EventEmitter<any> {
-
-        return this.singleListener;
+        const listener: EventEmitter<User> = new EventEmitter();
+        return listener;
     }
 }

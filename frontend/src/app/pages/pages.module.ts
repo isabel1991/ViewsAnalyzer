@@ -9,13 +9,15 @@ import { ComponentsModule } from '../components/components.module';
 import { SharedModule } from '../shared/shared.module';
 import { UserManagementComponent } from './user-management/user-management.component';
 import { ViewManagementComponent } from './view-management/view-management.component';
+import { DatabaseViewerComponent } from './database-viewer/database-viewer.component';
 
 @NgModule({
   declarations: [
     PagesComponent,
     DashboardComponent,
     UserManagementComponent,
-    ViewManagementComponent
+    ViewManagementComponent,
+    DatabaseViewerComponent
   ],
   exports: [
     PagesComponent

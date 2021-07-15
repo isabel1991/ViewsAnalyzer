@@ -1,10 +1,14 @@
 <header>
-    <div class="title-app">Views Analyzer</div>
-    <div class="user-profile" *ngIf="currentUserLogged">
-        Bienvenido, {{currentUserLogged.username}}
-        <div class="config-menu" (click)="openUserConfig()">
-            <div class="user-nav">
-                <div class="item-nav" (click)="logout()"><div class="icon logout"></div> Cerrar sesión</div>
+    <div class="header">
+        <div class="title-app">Views Analyzer</div>
+        <div class="user-profile" *ngIf="currentUserLogged">
+            Bienvenido, {{currentUserLogged.username}}
+            <div class="config-menu" (click)="openUserConfig()">
+                <div class="user-nav">
+                    <div class="item-nav" (click)="logout()">
+                        <div class="icon logout"></div> Cerrar sesión
+                    </div>
+                </div>
             </div>
         </div>
     </div>
