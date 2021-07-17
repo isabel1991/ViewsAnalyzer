@@ -13,7 +13,7 @@ export class PagesComponent implements OnInit {
   constructor(private userProvider: UserServiceProvider, private router: Router) { }
 
   ngOnInit(): void {
-
+    
     if (!this.userProvider.userHasLogged()) {
       this.router.navigate(['/login']);
     }

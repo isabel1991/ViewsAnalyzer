@@ -7,8 +7,27 @@
         position: relative;
         font-size: 3.5em;
         display: block;
-        text-align: center;
         margin-top: 20px;
+        display: flex;
+        flex-flow: column;
+        justify-content: center;
+        place-items: center;
+        $widthLogo:200px;
+        $heightLogo:150px;
+
+        $sizeMultiplier: 1.3;
+        div.logo {
+            min-width: widthLogo;
+            min-height: $heightLogo;
+            width: $widthLogo*$sizeMultiplier;
+            height: $heightLogo*$sizeMultiplier;
+            background: rgba(255, 255, 255, 0.219);
+            background-image: url(/assets/resources/images/shared/logo.svg);
+            background-repeat: no-repeat;
+            background-size: contain;
+            background-position-y: center;
+            background-position-x: center;
+        }
     }
 
     .login-form {
@@ -97,7 +116,7 @@
                     }
                 }
             }
-            
+
             .errorMessage {
                 position: absolute;
                 bottom: 75px;

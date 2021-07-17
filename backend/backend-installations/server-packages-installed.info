@@ -7,3 +7,6 @@ npm install express
 npm install body-parser
 npm install sqlite3
 npm install md5
+
+-- need to install
+npm i nodemon -g

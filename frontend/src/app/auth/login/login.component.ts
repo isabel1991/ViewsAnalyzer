@@ -21,9 +21,7 @@ export class LoginComponent {
   public passwordErrorMessage: string = "";
   public loginErrorMessage: string = "";
 
-  constructor(private userProvider: UserServiceProvider, private router:Router) {
-    // showMessage("testing",'INFO');
-  }
+  constructor(private userProvider: UserServiceProvider, private router:Router) {}
 
   validateUser(): void {
     if (!this.user.username) {

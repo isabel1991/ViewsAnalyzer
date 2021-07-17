@@ -28,7 +28,7 @@ function DBControllerClass() {
                                     if (["0", "1"].indexOf(value) != -1)
                                         response = value == "1" ? "DEFAULT true" : "DEFAULT false";
                                     else
-                                        response = "DEFAULT "+value;
+                                        response = "DEFAULT " + value;
                                 }
                                 else {
                                     switch (value.trim()) {
@@ -68,9 +68,8 @@ function DBControllerClass() {
                     }
 
 
-                    resolve({"columns":columns});
+                    resolve({ "columns": columns });
                 }).catch((error) => {
-                    console.log(error);
                     reject('No se ha podido conseguir las columnas de la tabla', table);
                 });
             }));

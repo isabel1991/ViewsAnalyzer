@@ -1,22 +1,14 @@
 <div class="view-builder">
-    <div class="view-list">
-        <input type="checkbox" checked>
-        <div class="title">Listado de ventanas existentes:</div>
-        <div class="table-container">
-            <div class="datatable" *ngIf="viewList">
-                <div class="row" *ngFor="let view of viewList">
-                    <div class="fields">
-                        <div class="field"></div>
-                        <div class="field"></div>
-                        <div class="field"></div>
-                        <div class="field"></div>
-                        <div class="field"></div>
-                    </div>
-                </div>
+
+    <div class="view-list collapsable-component" title="Vistas creadas">
+        <div class="container">
+            <div class="loading" *ngIf="loading"></div>
+            <div class="data" *ngIf="!loading && thereAreViews">
+                <app-data-table [list]="viewOutputListener"></app-data-table>
             </div>
-            <div class="no-views" *ngIf="!viewList">No existen actualmente vistas en la base de datos</div>
+            <div class="no-data" *ngIf="!loading && !thereAreViews">No se han encontrado ventanas creadas actualmente.</div>
         </div>
-        <div class="view-options"></div>
     </div>
+
     <!-- <view-simulator></view-simulator> -->
 </div>

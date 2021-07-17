@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit } from '@angular/core';
 import { View } from 'src/app/model/View';
+import { ViewServiceProvider } from 'src/app/providers/view.provider';
 
 @Component({
   selector: 'app-view-management',
@@ -8,11 +9,39 @@ import { View } from 'src/app/model/View';
 })
 export class ViewManagementComponent implements OnInit {
 
-  public viewList:View[];
+  public viewOutputListener: EventEmitter<View[]> = new EventEmitter<View[]>();
+  public viewInputListener: EventEmitter<View> = new EventEmitter<View>();
+  public loading: boolean = true;
+  public thereAreViews: boolean = false;
 
-  constructor() { }
+  constructor(private viewProvider: ViewServiceProvider) { }
 
   ngOnInit(): void {
+    this.getViewList();
   }
 
+
+
+  private getViewList(): void {
+    this.viewProvider.getAllViews().subscribe(
+      views => {
+        console.log("views", views);
+        this.loading = false;
+
+        if (views) {
+          this.thereAreViews = views.length > 0 ? true : false;
+          this.viewOutputListener.emit(views);
+        }
+        else {
+          this.viewOutputListener.emit([]);
+        }
+
+      },
+      err => {
+        console.log("errors", err);
+        this.loading = false;
+
+      }
+    )
+  }
 }
