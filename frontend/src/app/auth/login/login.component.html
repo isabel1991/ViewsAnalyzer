@@ -19,7 +19,7 @@
         </div>
         <div class="form-button-container">
             <div class="button-container">
-                <button class="button--default" [disabled]="!user.isValid()"
+                <button class="btn--default" [disabled]="!user.isValid()"
                 (click)="login()">Acceder</button>
             </div>
             <div class="errorMessage" *ngIf="loginErrorMessage">{{loginErrorMessage}}</div>

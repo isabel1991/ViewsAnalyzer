@@ -47,9 +47,9 @@ function DBDaoClass() {
 
     this.view = {
         getAll: function (database) {
-            const sql = "SELECT * from View";
+            const sql = "SELECT * FROM View;";
             return (new Promise((resolve, reject) => {
-                database.get(sql, [], (error, data) => {
+                database.all(sql, [], (error, data) => {
                     if (error) {
                         reject(error);
                     }
@@ -58,7 +58,20 @@ function DBDaoClass() {
                     }
                 });
             }));
-        }
+        },
+        new: function (database, params) {
+            const sql = "INSERT INTO View (name,description,usingFiltroMayores,creationDate,userId,stateId) VALUES (?,?,?,?,?,?)";
+            return (new Promise((resolve, reject) => {
+                database.get(sql, params, (error, data) => {
+                    if (error) {
+                        reject(error);
+                    }
+                    else {
+                        resolve(data);
+                    }
+                });
+            }));
+        },
     }
 }
 

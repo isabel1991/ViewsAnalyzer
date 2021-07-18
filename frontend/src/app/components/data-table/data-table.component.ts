@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-data-table',
@@ -7,15 +7,11 @@ import { Component, EventEmitter, Input, OnInit } from '@angular/core';
 })
 export class DataTableComponent implements OnInit {
 
-  @Input() listener:EventEmitter<Array<any>>;
-  public list:Array<any>;
+  @Output() outputListener:EventEmitter<any> = new EventEmitter();
+  @Input() list:any[];
 
   ngOnInit(): void {
-    this.listener.subscribe(
-      list => {
-        console.log("list",this.list);
-      }
-    )
+    
   }
 
 }

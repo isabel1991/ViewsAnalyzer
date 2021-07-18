@@ -5,7 +5,6 @@ const DB_DAO = new DBDaoClass();
 function DBControllerClass() {
 
     this.table = {
-
         getColumns: function (database, table) {
             const params = table;
 
@@ -120,6 +119,24 @@ function DBControllerClass() {
                 }).catch((error) => {
                     console.log(error);
                     reject('No se ha podido conseguir la información de las vistas.')
+                });
+            }));
+        },
+        new: function (database, viewParams) {
+            const params = [
+                viewParams.name,
+                viewParams.description,
+                viewParams.usingFiltroMayores,
+                viewParams.creationDate,
+                viewParams.userId,
+                viewParams.stateId
+            ];
+            return (new Promise(function (resolve, reject) {
+                DB_DAO.view.new(database, params).then(() => {
+                    resolve(true);
+                }).catch((error) => {
+                    console.log(error);
+                    reject('Ha habido un problema al insertar la ventana.')
                 });
             }));
         }

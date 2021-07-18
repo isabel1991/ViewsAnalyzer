@@ -1,14 +1,50 @@
 <div class="view-builder">
 
-    <div class="view-list collapsable-component" title="Vistas creadas">
-        <div class="container">
-            <div class="loading" *ngIf="loading"></div>
-            <div class="data" *ngIf="!loading && thereAreViews">
-                <app-data-table [list]="viewOutputListener"></app-data-table>
+    <div class="view-list">
+        <div class="collapsable-component" title="Vistas creadas">
+            <div class="container">
+                <div class="loading" *ngIf="loading"></div>
+                <app-data-table *ngIf="!loading" (outputListener)="outputListener" [list]="viewList"></app-data-table>
             </div>
-            <div class="no-data" *ngIf="!loading && !thereAreViews">No se han encontrado ventanas creadas actualmente.</div>
         </div>
     </div>
+    <div class="view-options">
+        <button class="btn--primary add" id="newViewButton" static
+            (click)="openContainer('.creation-view-container','.view-options>button#newViewButton')">Nueva
+            Ventana</button>
+        <button class="btn--primary modify" id="modifyViewButton" static *ngIf="thereAreViews" disabled>Modificar
+            Ventana</button>
+    </div>
 
-    <!-- <view-simulator></view-simulator> -->
+    <div class="creation-view-container" style="display: none;">
+        <fieldset>
+            <legend>Creación de ventana</legend>
+            <div class="creation-view-form">
+                <div class="input-group">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" [(ngModel)]="newView.name.value">
+                </div>
+
+                <div class="input-group">
+                    <label for="usingFiltroMayores">UsaFiltroMayores</label>
+                    <input type="checkbox" id="usingFiltroMayores" togglebutton
+                        [(ngModel)]="newView.usingFiltroMayores">
+                </div>
+
+                <div class="input-group">
+                    <label for="description">Description</label>
+                    <textarea id="description" cols="40" rows="4" [(ngModel)]="newView.description.value"></textarea>
+                </div>
+
+
+            </div>
+            <div class="button-group">
+                <button class="btn--primary save" static (click)="createNewView()"
+                    [disabled]="!(newView.name.value.trim() && newView.description.value.trim())">Crear Ventana</button>
+                <button class="btn--default clear" static (click)="cleanNewViewForm()">Limpiar datos</button>
+                <button class="btn--cancel" static
+                    (click)="closeContainer('.creation-view-container','.view-options>button#newViewButton')">Cancelar</button>
+            </div>
+        </fieldset>
+    </div>
 </div>

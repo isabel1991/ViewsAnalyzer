@@ -7,14 +7,17 @@ import { HeaderConfigurationService } from './Service';
 @Injectable({
   providedIn: 'root'
 })
-export class ViewService extends HeaderConfigurationService{
-  
+export class ViewService extends HeaderConfigurationService {
+
   constructor(private httpClient: HttpClient) {
     super();
   }
 
-  getAllViews():Observable<any> {
+  getAllViews(): Observable<any> {
+    return this.httpClient.get(ServerConfig.server_ip + "/api/view/getAll", { headers: this.header });
+  }
 
-    return this.httpClient.get(ServerConfig.server_ip+"/api/view/getAll",{headers: this.header});
+  createView(parameters: any): Observable<any> {
+    return this.httpClient.post(ServerConfig.server_ip + "/api/view/new", parameters, { headers: this.header });
   }
 }

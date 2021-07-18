@@ -33,106 +33,232 @@ body {
         -moz-appearance: textfield;
     }
 
-    .button {
-        padding: 10px 20px;
-        border-radius: 10px;
-        &:not([loading]):hover,
-        &:not([loading]):active,
-        &[loading] {
-            background-color: var(--color-secondary);
-            color: var(--color-primary);
-            transform: scale(1.05);
-            border: 1px solid var(--color-primary);
-            text-shadow: 0 0 15px solid rgb(61, 68, 0);
-            font-weight: bolder;
-            transition: all 0.3s;
-        }
+    button {
+        margin: 3px;
+        padding: 7px 12px;
+        cursor: pointer;
         &:disabled {
-            opacity: 0.5;
+            cursor: not-allowed;
         }
-        &[loading] {
+        &.btn {
+            &--default:not([static]),
+            &--primary:not([static]),
+            &--secondary:not([static]),
+            &--cancel:not([static]) {
+                transition: all 0.3s;
+                z-index: 1;
+                &:hover {
+                    z-index: 2;
+                    transform: scale(1.1);
+                    box-shadow: 0 0 7px gray;
+                }
+            }
+
+            &--default {
+                background-color: var(--color-primary);
+                color: var(--color-secondary);
+                border: 1px solid var(--color-primary);
+
+                &:hover {
+                    background-color: var(--color-secondary);
+                    color: var(--color-primary);
+                }
+
+                &:disabled {
+                    background-color: var(--color-primary--opacity);
+                    color: var(--color-secondary);
+                    border: 1px solid var(--color-primary--opacity);
+                }
+            }
+
+            &--primary {
+                background-color: var(--container-header-color);
+                color: var(--color-secondary);
+                border: 1px solid var(--container-header-color);
+
+                &:hover {
+                    background-color: var(--color-secondary);
+                    color: var(--container-header-color);
+                }
+
+                &:disabled {
+                    background-color: var(--container-header-color--lighter);
+                    color: var(--color-secondary);
+                    border: 1px solid var(--container-header-color--lighter);
+                }
+            }
+
+            &--secondary {
+                background-color: var(--color-secondary);
+                color: var(--container-header-color);
+                border: 1px solid var(--container-header-color);
+
+                &.add,
+                &.remove,
+                &.modify,
+                &.copy {
+                    &.add::before {
+                        background-image: url(/assets/resources/images/utilities/create.svg);
+                    }
+                    &.remove::before {
+                        background-image: url(/assets/resources/images/utilities/remove.svg);
+                    }
+                    &.modify::before {
+                        background-image: url(/assets/resources/images/utilities/modify.svg);
+                    }
+                    &.copy::before {
+                        background-image: url(/assets/resources/images/utilities/copy-paste.svg);
+                    }
+                }
+                &:hover:not(:disabled) {
+                    background-color: var(--container-header-color);
+                    color: var(--color-secondary);
+
+                    &.add,
+                    &.remove,
+                    &.modify,
+                    &.copy {
+                        &.add::before {
+                            background-image: url(/assets/resources/images/utilities/create--white.svg);
+                        }
+                        &.remove::before {
+                            background-image: url(/assets/resources/images/utilities/remove--white.svg);
+                        }
+                        &.modify::before {
+                            background-image: url(/assets/resources/images/utilities/modify--white.svg);
+                        }
+                        &.copy::before {
+                            background-image: url(/assets/resources/images/utilities/copy-paste--white.svg);
+                        }
+                    }
+                }
+            }
+
+            &--cancel {
+                background-color: rgb(255, 78, 78);
+                color: var(--color-secondary);
+                border: 1px solid rgb(255, 78, 78);
+
+                &:hover {
+                    background-color: var(--color-secondary);
+                    color: rgb(255, 78, 78);
+                }
+            }
+        }
+        &.add,
+        &.remove,
+        &.modify,
+        &.copy {
             position: relative;
+            padding-left: 30px;
+            transition: all 0.3s;
             &::before {
                 content: "";
-                position: absolute;
-                width: 50%;
-                height: 100%;
-                top: 0;
-                left: 50%;
-                transform: translate(-50%, 0%);
-                background-image: url(/assets/resources/images/utilities/loader.svg);
+                display: inline-block;
+                width: 17px;
+                height: 17px;
                 background-repeat: no-repeat;
                 background-size: contain;
+                margin: 0 5px;
+                position: absolute;
+                top: 50%;
+                left: 0;
+                transform: translate(-0%, -50%);
+                transition: all 0.3s;
             }
-        }
 
-        &--default,
-        &--danger,
-        &--info,
-        &--verified {
-            @extend .button;
-        }
-        &--default {
-            background-color: var(--color-primary);
-            color: var(--color-secondary);
-            border: 1px solid var(--color-secondary);
-            transition: all 0.3s;
-        }
-        &--danger {
-            background-color: var(--btn-cancel-clr);
-            color: var(--color-secondary);
-            border: 1px solid var(--color-secondary);
-            transition: all 0.3s;
-            &:not([loading]):hover,
-            &:not([loading]):active,
-            &[loading] {
-                background-color: var(--color-secondary);
-                color: var(--btn-cancel-clr);
-                transform: scale(1.05);
-                border: 1px solid var(--btn-cancel-clr);
-                transition: all 0.3s;
-            }
-            &[loading] {
-                color: var(--color-secondary);
+            &:hover:not(:disabled) {
+                &.add::before {
+                    background-image: url(/assets/resources/images/utilities/create.svg);
+                }
+                &.remove::before {
+                    background-image: url(/assets/resources/images/utilities/remove.svg);
+                }
+                &.modify::before {
+                    background-image: url(/assets/resources/images/utilities/modify.svg);
+                }
+                &.copy::before {
+                    background-image: url(/assets/resources/images/utilities/copy-paste.svg);
+                }
             }
         }
+        &.add::before {
+            background-image: url(/assets/resources/images/utilities/create--white.svg);
+        }
+        &.remove::before {
+            background-image: url(/assets/resources/images/utilities/remove--white.svg);
+        }
+        &.modify::before {
+            background-image: url(/assets/resources/images/utilities/modify--white.svg);
+        }
+        &.copy::before {
+            background-image: url(/assets/resources/images/utilities/copy-paste--white.svg);
+        }
+    }
 
-        &--info {
-            background-color: var(--btn-info-clr);
-            color: var(--color-secondary);
-            border: 1px solid var(--color-secondary);
-            transition: all 0.3s;
-            &:not([loading]):hover,
-            &:not([loading]):active,
-            &[loading] {
-                background-color: var(--color-secondary);
-                color: var(--btn-info-clr);
-                transform: scale(1.05);
-                border: 1px solid var(--btn-info-clr);
-                transition: all 0.3s;
-            }
-            &[loading] {
-                color: var(--color-secondary);
+    fieldset {
+        width: 98%;
+        padding-left: 10px;
+        box-sizing: border-box;
+        legend {
+            padding: 0 5px;
+            color: var(--container-header-color);
+            font-weight: bold;
+        }
+    }
+
+    fieldset,
+    textarea {
+        border: 1px solid var(--container-header-color);
+    }
+
+    div.toggle-button-container {
+        position: relative;
+        display: inline-block;
+        width: 40px;
+        height: 22px;
+
+        input[type|="checkbox"] {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            z-index: 5;
+            cursor: pointer;
+            &:checked + span.toggle-span {
+                background-color: var(--container-header-color);
+                transition: background-color 0.3s;
+                &::after {
+                    left: 18.5px;
+                    transition: left 0.3s;
+                    border: 1px solid white;
+                }
             }
         }
-        &--verified {
-            background-color: rgb(88, 235, 108);
-            color: var(--color-secondary);
-            text-shadow: 1px 1px 2px rgb(0, 0, 0);
-            border: 1px solid var(--color-secondary);
-            transition: all 0.3s;
-            &:not([loading]):hover,
-            &:not([loading]):active,
-            &[loading] {
-                background-color: var(--color-secondary);
-                color: rgb(96, 255, 117);
-                text-shadow: 1px 1px 0px rgb(73, 194, 89);
-                transform: scale(1.05);
-                border: 1px solid rgb(96, 255, 117);
-                transition: all 0.3s;
-            }
-            &[loading] {
-                color: var(--color-secondary);
+        span.toggle-span {
+            width: 40px;
+            height: 22px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: inline-block;
+            border-radius: 50px;
+            border: 1px solid lightgray;
+            transition: background-color 0.3s;
+            &::after {
+                content: "";
+                width: 20px;
+                height: 20px;
+                border: 1px solid lightgray;
+                position: absolute;
+                top: 0;
+                left: 0;
+                border-radius: 50%;
+                background-color: white;
+                z-index: 1;
+                transition: left 0.3s;
             }
         }
     }
@@ -145,7 +271,7 @@ body {
         border: 1px solid #2783eb;
         div.title {
             display: block;
-            padding: 5px 10px;
+            padding: 5px 7px;
             background-color: #2783eb;
             color: white;
             cursor: pointer;
@@ -154,14 +280,16 @@ body {
                 display: inline-block;
                 width: 20px;
                 height: 20px;
-                margin-right: 10px;
-                background-image: url(/assets/resources/images/shared/arrow-up--white.svg);
+                margin-right: 3px;
+                position: relative;
+                top: 3px;
+                background-image: url(/assets/resources/images/utilities/arrow-up--white.svg);
                 background-repeat: no-repeat;
                 background-size: contain;
                 transform: rotateZ(180deg);
                 transition: transform 0.3s;
             }
-            
+
             &[close]::before {
                 transform: rotateZ(0deg);
                 transition: transform 0.3s;
@@ -195,13 +323,8 @@ body {
     --color-secondary: rgb(255, 255, 255);
     --color-terciary: rgb(88, 118, 170);
 
-    --btn-clr-primary: rgb(132, 255, 159);
-    --btn-clr-terciary: rgb(255, 157, 0);
-
-    --btn-cancel-clr: rgb(255, 104, 104);
-    --btn-info-clr: rgb(90, 214, 255);
-
     --container-header-color: rgb(39, 131, 235);
+    --container-header-color--lighter: rgb(81, 162, 255);
 
     --default-header-heigth: 8vh;
     --scrolling-header-heigth: 6vh;

@@ -86,6 +86,7 @@ div#dashboard {
                 }
                 &.logout {
                     background-image: url(/assets/resources/images/pages/dashboard/logout.svg);
+                    transform: rotateY(180deg);
                 }
             }
         }

@@ -1,5 +1,8 @@
-export class User {
+import { Table } from "./Table";
 
+export class User extends Table{
+
+    public id:number;
     public email:string = "";
     public username:string = "";
     public password:string = "";
@@ -12,6 +15,7 @@ export class User {
         try{
             const user:User = new User();
 
+            user.id = data['id'];
             user.email = data["email"];
             user.username = data["username"];
             user.password = data["password"];

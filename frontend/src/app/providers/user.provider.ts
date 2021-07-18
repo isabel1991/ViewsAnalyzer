@@ -2,6 +2,7 @@ import { Injectable, EventEmitter } from "@angular/core";
 import { Router } from "@angular/router";
 import { User } from "../model/User";
 import { UserService } from "../services/user.service";
+import { SessionProvider } from "./session.provider";
 
 @Injectable({
     providedIn: 'root'
@@ -9,7 +10,7 @@ import { UserService } from "../services/user.service";
 
 export class UserServiceProvider {
 
-    constructor(private userService: UserService, private router: Router) { }
+    constructor(private sessionProvider: SessionProvider, private userService: UserService, private router: Router) { }
 
     login(user: User): EventEmitter<any> {
         const params = {
@@ -20,7 +21,7 @@ export class UserServiceProvider {
         const listener: EventEmitter<User> = new EventEmitter();
 
         this.userService.login(params).subscribe(
-            data => {                
+            data => {
                 listener.emit(data)
             },
             err => {
@@ -39,12 +40,12 @@ export class UserServiceProvider {
     }
 
     userHasLogged(): boolean {
-        let user: User = User.parse(JSON.parse(sessionStorage.getItem("view-analyzer_user-data")));
+        let user: User = User.parse(JSON.parse(this.sessionProvider.get("view-analyzer_user-data")));
         return user != null;
     }
 
     getUserLogged(): User {
-        return User.parse(JSON.parse(sessionStorage.getItem("view-analyzer_user-data")));
+        return User.parse(JSON.parse(this.sessionProvider.get("view-analyzer_user-data")));
     }
 
     register(): EventEmitter<any> {

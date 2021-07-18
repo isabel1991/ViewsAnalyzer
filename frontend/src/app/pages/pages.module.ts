@@ -10,6 +10,7 @@ import { SharedModule } from '../shared/shared.module';
 import { UserManagementComponent } from './user-management/user-management.component';
 import { ViewManagementComponent } from './view-management/view-management.component';
 import { DatabaseViewerComponent } from './database-viewer/database-viewer.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { DatabaseViewerComponent } from './database-viewer/database-viewer.compo
   ],
   imports: [
     CommonModule,
+    FormsModule,
     RouterModule,
     ComponentsModule,
     SharedModule,

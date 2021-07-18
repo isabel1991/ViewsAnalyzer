@@ -1,12 +1,8 @@
-<div class="datatable" *ngIf="null">
-    <div class="row" *ngFor="let view of null">
+<div class="datatable" *ngIf="list">
+    <div class="row" *ngFor="let view of list">
         <div class="fields">
-            <div class="field"></div>
-            <div class="field"></div>
-            <div class="field"></div>
-            <div class="field"></div>
-            <div class="field"></div>
+            <div class="field">{{view.name}}</div>
         </div>
     </div>
 </div>
-<div class="no-views">No existen actualmente vistas en la base de datos</div>
+<div class="no-views" *ngIf="!list">No existen actualmente ventanas en la base de datos</div>
