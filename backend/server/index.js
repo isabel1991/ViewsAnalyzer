@@ -76,7 +76,9 @@ app.post("/api/view/new", jsonParser, (req, res) => {
     }
 });
 
-app.post("/api/view/remove", jsonParser, (req, res) => {
+//Rafa: modificación: no se pone extensión remove, sino hasta view 
+// Recomienda hacer lo mismo en el resto
+app.post("/api/view/", jsonParser, (req, res) => {
     try {
         const params = req.body;
         console.log(params);
@@ -91,6 +93,26 @@ app.post("/api/view/remove", jsonParser, (req, res) => {
     }
     catch (error) {
         console.log("[main error /api/view/remove] ", error);
+        res.status(400).json({ "error": error });
+    }
+});
+
+//ISA - update 07/21/2021
+app.post("/api/view/update", jsonParser, (req, res) => {
+    try {
+        const params = req.body;
+        console.log(params);
+        DBController.view.update(db, params).then((data) => {
+            res.status(200).json(data);
+
+        }).catch((error) => {
+            console.log("[error /api/view/update] ", error, "params", params);
+            res.status(400).json(error);
+
+        });
+    }
+    catch (error) {
+        console.log("[main error /api/view/update] ", error);
         res.status(400).json({ "error": error });
     }
 });

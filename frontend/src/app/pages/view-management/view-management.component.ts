@@ -155,4 +155,23 @@ export class ViewManagementComponent implements OnInit {
     }
 
   }
+
+  public updateViewSelected(){
+    const _ = this;
+    const currentTime = Date.now();
+    this.viewProvider.updateView(this.viewSelected).subscribe(
+      data => {
+        this.viewList = this.viewList.filter(e => e.id != this.viewSelected.id);
+        this.stream.imports(this.viewList, true);
+        setTimeout(function () {
+          _.closeContainer('.modification-view-container', '.view-options>button#modifyViewButton');
+          _.getViewList();
+        }, (currentTime - Date.now()) < 1000 ? 1000 : 0);
+      },
+      err => {
+        console.log("error al modificar");
+      });
+
+
+  }
 }

@@ -52,6 +52,35 @@ export class ViewServiceProvider {
         return listener;
     }
 
+    //Isa 07/21/2021
+    updateView(view: View): EventEmitter<boolean> {
+      const listener: EventEmitter<boolean> = new EventEmitter();
+      this.viewService.updateView({'id':view.id}).subscribe(
+        data=> {
+          const newView = {
+          name: view.name,
+          description: view.description,
+          usingFiltroMayores: view.usingFiltroMayores ? 1 : 0,
+          creationDate: Date.now(),
+          userId: this.userProvider.getUserLogged().id,
+          stateId: 1
+      }
+
+      console.log(newView);
+
+      this.viewService.updateView(newView).subscribe(
+          data => {
+              listener.emit(true);
+          },
+          error => listener.error(error)
+      )
+
+        })
+
+
+      return listener;
+  }
+
     removeView(view: View): EventEmitter<boolean> {
         const listener: EventEmitter<boolean> = new EventEmitter();
 

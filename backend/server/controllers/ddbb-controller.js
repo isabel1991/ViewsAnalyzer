@@ -140,6 +140,28 @@ function DBControllerClass() {
                 });
             }));
         },
+
+        //Isa - update 07/21/2021
+        update: function (database, viewParams) {
+            const params = [
+                viewParams.name,
+                viewParams.description,
+                viewParams.usingFiltroMayores,
+                viewParams.creationDate,
+                viewParams.userId,
+                viewParams.stateId
+            ];
+            return (new Promise(function (resolve, reject) {
+                DB_DAO.view.update(database, params).then(() => {
+                    resolve(true);
+                }).catch((error) => {
+                    console.log(error);
+                    reject('Ha habido un problema al actualizar la ventana.')
+                });
+            }));
+        },
+
+
         remove: function (database, viewParams) {
             const params = [viewParams.id];
             return (new Promise(function (resolve, reject) {

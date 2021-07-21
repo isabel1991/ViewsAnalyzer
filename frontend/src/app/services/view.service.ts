@@ -24,4 +24,8 @@ export class ViewService extends HeaderConfigurationService {
   removeView(parameters: any): Observable<any> {
     return this.httpClient.post(ServerConfig.server_ip + "/api/view/remove", parameters, { headers: this.header });
   }
+
+  updateView(parameters:any): Observable<any>{
+    return this.httpClient.post(ServerConfig.server_ip + "/api/view/update", parameters,{headers:this.header})
+  }
 }
