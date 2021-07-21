@@ -1,4 +1,4 @@
 export interface Tablelable {
-    getColumns():object[];
-    get(columnName:string):any;
+    getColumns():string[];
+    get(columnIndex:number):any;
 }

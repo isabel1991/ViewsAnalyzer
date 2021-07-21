@@ -1,19 +1,20 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ErrorControl } from 'src/app/config/ErrorModule';
 import { User } from 'src/app/model/User';
 import { UserServiceProvider } from 'src/app/providers/user.provider';
+import * as $ from 'jquery';
 
-declare function showMessage(message:string,type:string);
+declare function showMessage(message: string, type: string);
 
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
-  providers:[UserServiceProvider]
+  providers: [UserServiceProvider]
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
 
   public user: User = new User();
 
@@ -21,7 +22,12 @@ export class LoginComponent {
   public passwordErrorMessage: string = "";
   public loginErrorMessage: string = "";
 
-  constructor(private userProvider: UserServiceProvider, private router:Router) {}
+  constructor(private userProvider: UserServiceProvider, private router: Router) { }
+
+  ngOnInit() {
+    if (this.userProvider.userHasLogged())
+      this.router.navigate(['/dashboard']);
+  }
 
   validateUser(): void {
     if (!this.user.username) {
@@ -44,18 +50,19 @@ export class LoginComponent {
   }
 
   login(): void {
-    if(!this.user.isValid()) {
+    if (!this.user.isValid()) {
       return;
     }
-
+    $("#btnSubmitLogin").attr('loading', '');
     this.userProvider.login(this.user).subscribe(
       data => {
-        sessionStorage.setItem('view-analyzer_user-data',JSON.stringify(data));
+        sessionStorage.setItem('view-analyzer_user-data', JSON.stringify(data));
         this.loginErrorMessage = "";
         this.router.navigate(['/dashboard']);
       },
-      err => {        
+      err => {
         this.user.password = "";
+        $("#btnSubmitLogin").removeAttr('loading');
         this.loginErrorMessage = ErrorControl.login.login_failed;
       }
     );

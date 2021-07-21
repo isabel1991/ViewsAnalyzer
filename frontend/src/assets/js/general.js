@@ -1,10 +1,11 @@
 function _init() {
-    $.map($("div.collapsable-component"), function (component) {
+    console.log("_init() called");
+    $.map($("div.collapsable-component[title]"), function (component) {
         const father = $(component),
             componentContent = father.find(".container");
         let titleComponent = $(document.createElement("div")).addClass("title").html(father.attr("title"));
         father.prepend(titleComponent);
-
+        father.removeAttr('title');
         if (typeof father.attr("collapse") === "string") {
             titleComponent.attr("close", "");
             componentContent.hide();
@@ -21,16 +22,17 @@ function _init() {
         });
     });
 
-    $.map($("input[type |= 'checkbox'][togglebutton]"),function(component) {
+    $.map($("input[type|='checkbox'][togglebutton]"), function (component) {
         const checkbox = $(component);
-        checkbox.wrap($(document.createElement('div')).addClass('toggle-button-container'));
-        checkbox.parent().append($(document.createElement('span')).addClass('toggle-span'));
+        if(!checkbox.parent().hasClass("toggle-button-container")) {
+            checkbox.wrap($(document.createElement('div')).addClass('toggle-button-container'));
+            checkbox.parent().append($(document.createElement('span')).addClass('toggle-span'));
+        }
     })
 }
 
 function showContainer(container, animation) {
-    console.log(animation);
-    if(animation !== false) {
+    if (animation !== false) {
         $(container).slideDown();
     }
     else {
@@ -39,7 +41,7 @@ function showContainer(container, animation) {
 }
 
 function hideContainer(container, animation) {
-    if(animation !== false) {
+    if (animation !== false) {
         $(container).slideUp();
     }
     else {

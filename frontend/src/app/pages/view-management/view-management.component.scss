@@ -3,7 +3,7 @@ div.view-builder {
     min-height: calc(100vh - 64px);
     padding: 5px;
     box-sizing: border-box;
-    div.view-list {
+    & > div.view-list {
         width: 100%;
         border: 1px solid var(--container-header-color);
         div.loading {
@@ -15,12 +15,12 @@ div.view-builder {
             background-size: contain;
             background-position-x: center;
         }
-        margin-bottom: 5px;
     }
     div.view-options {
         width: 100%;
+        margin-top: 5px;
     }
-    div.creation-view-container {
+    & > div.creation-view-container,& > div.modification-view-container {
         width: 100%;
         margin-top: 20px;
         fieldset {
@@ -32,7 +32,7 @@ div.view-builder {
                 color: var(--color-secondary);
                 padding: 2px 10px;
             }
-            .creation-view-form {
+            .view-form {
                 display: flex;
                 flex-flow: row;
                 justify-content: flex-start;
@@ -48,7 +48,7 @@ div.view-builder {
                     label {
                         margin-right: 5px;
                         &::after {
-                            content: ':';
+                            content: ":";
                         }
                     }
 
@@ -56,6 +56,19 @@ div.view-builder {
                         border-bottom: 1px solid var(--container-header-color);
                     }
                 }
+            }
+        }
+    }
+
+    & > div.components-view-container {
+
+
+        & > div.component-aside {
+        }
+        & > div.section {
+            & > div.crud-data {
+            }
+            & > div.simulator {
             }
         }
     }

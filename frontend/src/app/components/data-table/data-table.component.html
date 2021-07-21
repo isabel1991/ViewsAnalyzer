@@ -1,8 +1,24 @@
-<div class="datatable" *ngIf="list">
-    <div class="row" *ngFor="let view of list">
-        <div class="fields">
-            <div class="field">{{view.name}}</div>
+<div class="datatable-container" *ngIf="list">
+    <div class="datatable" *ngIf="list.length>0">
+        <div class="row-header">
+            <div class="header-fields">
+                <div class="header-field" *ngFor="let col of columns">{{col}}</div>
+            </div>
+        </div>
+        <div class="row" *ngFor="let view of list; let viewIndex = index">
+            <div class="field" *ngFor="let col of columns;let i = index" (click)="selectRow(viewIndex)">{{view.get(i)}}</div>
         </div>
     </div>
+
+    <!-- <div class="datatable" *ngIf="list.length>0">
+        <table>
+            <tr class="row-header">
+                <th class="header-field" *ngFor="let col of columns;let i = index" id="col-{{i}}">{{col}}</th>
+            </tr>
+            <tr class="row" *ngFor="let view of list; let viewIndex = index"  (click)="selectRow(viewIndex)">
+                <td *ngFor="let col of columns;let i = index">{{view.get(i)}}</td>
+            </tr>
+        </table>
+    </div> -->
+    <div class="no-views" *ngIf="list.length==0">No existen registros en la base de datos</div>
 </div>
-<div class="no-views" *ngIf="!list">No existen actualmente ventanas en la base de datos</div>

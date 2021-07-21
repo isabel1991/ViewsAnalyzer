@@ -1,5 +1,3 @@
-import { Table } from "./Table";
-
-export class State extends Table{
+export class State {
     
 }

@@ -11,7 +11,7 @@ import { UserServiceProvider } from "./user.provider";
 
 export class ViewServiceProvider {
 
-    constructor(private userProvider:UserServiceProvider ,private viewService: ViewService) {
+    constructor(private userProvider: UserServiceProvider, private viewService: ViewService) {
 
     }
 
@@ -32,17 +32,30 @@ export class ViewServiceProvider {
         const listener: EventEmitter<boolean> = new EventEmitter();
 
         const newView = {
-            name : view.name,
-            description : view.description,
-            usingFiltroMayores : view.usingFiltroMayores?1:0,
-            creationDate : Date.now(),
-            userId : this.userProvider.getUserLogged().id,
-            stateId : 1
+            name: view.name,
+            description: view.description,
+            usingFiltroMayores: view.usingFiltroMayores ? 1 : 0,
+            creationDate: Date.now(),
+            userId: this.userProvider.getUserLogged().id,
+            stateId: 1
         }
 
         console.log(newView);
-        
+
         this.viewService.createView(newView).subscribe(
+            data => {
+                listener.emit(true);
+            },
+            error => listener.error(error)
+        )
+
+        return listener;
+    }
+
+    removeView(view: View): EventEmitter<boolean> {
+        const listener: EventEmitter<boolean> = new EventEmitter();
+
+        this.viewService.removeView({'id':view.id}).subscribe(
             data => {
                 listener.emit(true);
             },

@@ -4,6 +4,29 @@
     padding: 0;
     box-sizing: content-box;
     outline: none;
+
+    /* width */
+    ::-webkit-scrollbar {
+        width: 5px;
+        height: 5px;
+        border-radius: 5px;
+    }
+
+    /* Track */
+    ::-webkit-scrollbar-track {
+        background: lightgray;
+    }
+
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+        background: var(--container-header-color);
+        cursor: pointer;
+    }
+
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+        background: var(--container-header-color--lighter);
+    }
 }
 body {
     overflow-x: hidden;
@@ -22,17 +45,34 @@ body {
             color: inherit;
         }
     }
-    /* Chrome, Safari, Edge, Opera */
-    input::-webkit-outer-spin-button,
-    input::-webkit-inner-spin-button {
-        -webkit-appearance: none;
-        margin: 0;
-    }
-    /* Firefox */
-    input[type="number"] {
-        -moz-appearance: textfield;
-    }
 
+    input {
+        /* Chrome, Safari, Edge, Opera */
+        &::-webkit-outer-spin-button,
+        &::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        /* Firefox */
+        &[type="number"] {
+            appearance: textfield;
+            -moz-appearance: textfield;
+        }
+
+        &:focus {
+            &:not([type|="checkbox"][togglebutton]) {
+                border-color: var(--color-primary) !important;
+            }
+            &[type|="checkbox"][togglebutton] + span.toggle-span::after {
+                background-color: var(--container-header-color--lighter);
+            }
+        }
+    }
+    textarea {
+        &:focus {
+            border-color: var(--color-primary) !important;
+        }
+    }
     button {
         margin: 3px;
         padding: 7px 12px;
@@ -41,6 +81,25 @@ body {
             cursor: not-allowed;
         }
         &.btn {
+            &--default[loading],
+            &--primary[loading],
+            &--secondary[loading],
+            &--cancel[loading] {
+                position: relative;
+                &::before {
+                    content: "";
+                    position: absolute;
+                    width: 50%;
+                    height: 100%;
+                    top: 0;
+                    left: 55%;
+                    transform: translate(-50%, 0%);
+                    background-image: url(/assets/resources/images/utilities/loader.svg);
+                    background-repeat: no-repeat;
+                    background-size: contain;
+                }
+            }
+
             &--default:not([static]),
             &--primary:not([static]),
             &--secondary:not([static]),
@@ -58,6 +117,10 @@ body {
                 background-color: var(--color-primary);
                 color: var(--color-secondary);
                 border: 1px solid var(--color-primary);
+
+                &[loading]::before {
+                    background-image: url(/assets/resources/images/utilities/loader--white.svg);
+                }
 
                 &:hover {
                     background-color: var(--color-secondary);
@@ -138,8 +201,13 @@ body {
                 background-color: rgb(255, 78, 78);
                 color: var(--color-secondary);
                 border: 1px solid rgb(255, 78, 78);
+                
+                &:disabled {
+                    background-color: rgb(255, 112, 112);
+                    border: 1px solid rgb(255, 112, 112);
+                }
 
-                &:hover {
+                &:hover:not(:disabled) {
                     background-color: var(--color-secondary);
                     color: rgb(255, 78, 78);
                 }
@@ -207,6 +275,25 @@ body {
         }
     }
 
+    span {
+        &[separator] {
+            width: 30px;
+            height: 30px;
+            display: inline-block;
+            position: relative;
+            top: calc(30px *32 /100);
+
+            &::before {
+                content: '|';
+                font-weight: bold;
+                color: var(--container-header-color);
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%,-50%);
+            }
+        }
+    }
     fieldset,
     textarea {
         border: 1px solid var(--container-header-color);

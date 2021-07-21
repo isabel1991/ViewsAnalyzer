@@ -59,10 +59,9 @@ app.get("/api/view/getAll", jsonParser, (req, res) => {
 });
 
 app.post("/api/view/new", jsonParser, (req, res) => {
-
     try {
         const params = req.body;
-        DBController.view.new(db,params).then((data) => {
+        DBController.view.new(db, params).then((data) => {
             res.status(200).json(data);
 
         }).catch((error) => {
@@ -76,6 +75,26 @@ app.post("/api/view/new", jsonParser, (req, res) => {
         res.status(400).json({ "error": error });
     }
 });
+
+app.post("/api/view/remove", jsonParser, (req, res) => {
+    try {
+        const params = req.body;
+        console.log(params);
+        DBController.view.remove(db, params).then((data) => {
+            res.status(200).json(data);
+
+        }).catch((error) => {
+            console.log("[error /api/view/remove] ", error, "params", params);
+            res.status(400).json(error);
+
+        });
+    }
+    catch (error) {
+        console.log("[main error /api/view/remove] ", error);
+        res.status(400).json({ "error": error });
+    }
+});
+
 
 app.get("/api/table/getColumns", jsonParser, (req, res) => {
 

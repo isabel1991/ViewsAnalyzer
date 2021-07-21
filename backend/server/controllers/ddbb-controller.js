@@ -139,6 +139,17 @@ function DBControllerClass() {
                     reject('Ha habido un problema al insertar la ventana.')
                 });
             }));
+        },
+        remove: function (database, viewParams) {
+            const params = [viewParams.id];
+            return (new Promise(function (resolve, reject) {
+                DB_DAO.view.remove(database, params).then(() => {
+                    resolve(true);
+                }).catch((error) => {
+                    console.log(error);
+                    reject('Ha habido un problema al eliminar la ventana.')
+                });
+            }));
         }
     }
 }

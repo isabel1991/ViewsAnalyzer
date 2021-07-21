@@ -1,6 +1,4 @@
-import { Table } from "./Table";
-
-export class User extends Table{
+export class User{
 
     public id:number;
     public email:string = "";

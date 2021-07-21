@@ -72,6 +72,19 @@ function DBDaoClass() {
                 });
             }));
         },
+        remove: function (database, params) {
+            const sql = "DELETE FROM View WHERE id=?";
+            return (new Promise((resolve, reject) => {
+                database.get(sql, params, (error, data) => {
+                    if (error) {
+                        reject(error);
+                    }
+                    else {
+                        resolve(data);
+                    }
+                });
+            }));
+        }
     }
 }
 

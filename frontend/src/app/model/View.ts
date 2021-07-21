@@ -1,22 +1,54 @@
-import { Field } from "./Field";
-import { Lazy } from "./LazyLoader";
-import { State } from "./State";
-import { Table } from "./Table";
+import { Tablelable } from "./Tablelable.interface";
 import { User } from "./User";
+import { DateFormatter } from "./utils/DateFormatter";
 
-export class View extends Table{
+export class View implements Tablelable {
 
-    public id: Field<number> = new Field("id","Id");
-    public name: Field<string> = new Field("name","Nombre", "");
-    public description: Field<string> = new Field("description","Descripción", "");
-    public usingFiltroMayores: Field<boolean> = new Field("usingFiltroMayores","Usa Filtro Mayores", false);
-    public creationDate: Field<Date> = new Field("creationDate","Fecha creación", null);
-    public userId:Lazy<number,User> = new Lazy();
-    public stateId: Field<State> = new Field("state","Estado", null);
-
+    public id: number;
+    public name: string = "";
+    public description: string = "";
+    public usingFiltroMayores: boolean = false;
+    public creationDate: Date;
+    public userId: number;
+    public stateId: number;
+    private currentUser;
     constructor() {
-        super();
+        this.name = "";
+        this.description = "";
 
+    }
+
+    getColumns(): string[] {
+        return ["Id", "Nombre", "Descripción", "Usa Filtro Mayores", "Creador", "Fecha de creación", "Estado"];
+    }
+
+    get(columnIndex: number) {
+
+        switch (columnIndex) {
+            case 0:
+                return this.id;
+            case 1:
+                return this.name;
+            case 2:
+                return this.description;
+            case 3:
+                return this.usingFiltroMayores;
+            case 4:
+                if (this.currentUser)
+                    return this.userId == this.currentUser.id ? "*Usted*" : this.userId;
+                else
+                    return this.userId;
+            case 5:
+                return DateFormatter.dateFormat(this.creationDate);
+            case 6:
+                return this.stateId;
+            default:
+                return null;
+        }
+    }
+
+    public setCurrentUser(user: User) {
+        this.currentUser = user;
     }
 
     public static parse(data: object) {
@@ -24,13 +56,13 @@ export class View extends Table{
         try {
             let view: View = new View();
 
-            view.id.value = data['id'];
-            view.name.value = data['name'];
-            view.description.value = data['description'];
-            view.usingFiltroMayores.value = data['usingFiltroMayores'] == 1;
-            view.creationDate.value = new Date(data['creationDate']);
-            view.userId.id = data['userId'];
-            view.stateId.value = data['stateId'];
+            view.id = data['id'];
+            view.name = data['name'];
+            view.description = data['description'];
+            view.usingFiltroMayores = data['usingFiltroMayores'] == 1;
+            view.creationDate = new Date(Number.parseInt(data['creationDate']));
+            view.userId = data['userId'];
+            view.stateId = data['stateId'];
 
             return view
         }

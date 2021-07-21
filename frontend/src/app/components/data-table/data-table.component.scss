@@ -1,0 +1,102 @@
+div.datatable-container {
+    width: 100%;
+    background-color: white;
+    overflow: auto;
+    div.datatable {
+        width: fit-content;
+        overflow: auto;
+        border: 1px solid lightgray;
+        div.row {
+            display: flex;
+            flex-flow: row;
+            justify-content: space-around;
+
+            &[selected] {
+                div.field {
+                    color: white !important;
+                    background-color: var(--color-primary) !important;
+                }
+            }
+
+            &:hover {
+                cursor: pointer;
+                div.field {
+                    color: white;
+                    background-color: rgba(81, 177, 255, 0.87);
+                }
+            }
+
+            &-header {
+                div.header-fields {
+                    display: flex;
+                    flex-flow: row;
+                    justify-content: space-around;
+                    div.header-field {
+                        width: 220px;
+                        text-align: left;
+                        background-color: var(--container-header-color--lighter);
+                        color: white;
+                        font-weight: bold;
+                        text-shadow: 1px 1px 0 rgb(88, 88, 88);
+                        box-sizing: border-box;
+                        padding-left: 10px;
+                    }
+                }
+            }
+            div.field {
+                width: 220px;
+                text-align: left;
+                overflow: auto;
+                box-sizing: border-box;
+                padding-left: 10px;
+            }
+        }
+    }
+
+    // div.datatable {
+    //     width: fit-content;
+    //     overflow: auto;
+    //     border: 1px solid lightgray;
+    //     table {
+    //         .row {
+    //             &[selected] {
+    //                 .field {
+    //                     color: white !important;
+    //                     background-color: var(--color-primary) !important;
+                        
+    //                 }
+    //             }
+
+    //             &:hover {
+    //                 cursor: pointer;
+    //                 .field {
+    //                     color: white;
+    //                     background-color: rgba(81, 177, 255, 0.87);
+    //                 }
+    //             }
+
+    //             &-header {
+    //                 .header-fields {
+    //                     .header-field {
+    //                         width: 220px;
+    //                         text-align: left;
+    //                         background-color: var(--container-header-color--lighter);
+    //                         color: white;
+    //                         font-weight: bold;
+    //                         text-shadow: 1px 1px 0 rgb(88, 88, 88);
+    //                         box-sizing: border-box;
+    //                         padding-left: 10px;
+    //                     }
+    //                 }
+    //             }
+    //             .field {
+    //                 width: 220px;
+    //                 text-align: left;
+    //                 overflow: auto;
+    //                 box-sizing: border-box;
+    //                 padding-left: 10px;
+    //             }
+    //         }
+    //     }
+    // }
+}

@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-
+import { Component, Input, OnInit } from '@angular/core';
+import * as $ from 'jquery';
+import { Stream } from 'src/app/model/utils/Stream';
 @Component({
   selector: 'view-simulator',
   templateUrl: './view-simulator.component.html',
@@ -7,9 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ViewSimulatorComponent implements OnInit {
 
-  constructor() { }
+  @Input() stream: Stream;
 
   ngOnInit(): void {
+    this.stream.openImports().subscribe(
+      data => {
+        
+      }
+    )
   }
 
 }

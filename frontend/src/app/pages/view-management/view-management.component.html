@@ -1,28 +1,36 @@
 <div class="view-builder">
-
     <div class="view-list">
         <div class="collapsable-component" title="Vistas creadas">
+            <!-- <div class="container" style="display: none;"> -->
             <div class="container">
                 <div class="loading" *ngIf="loading"></div>
-                <app-data-table *ngIf="!loading" (outputListener)="outputListener" [list]="viewList"></app-data-table>
+                <app-data-table [stream]="stream"></app-data-table>
+                <div class="view-options">
+                    <button class="btn--primary add" id="newViewButton" static
+                        (click)="openContainer('.creation-view-container','div.view-options')">Nueva
+                        Ventana</button>
+                    <button class="btn--primary modify" id="modifyViewButton" static *ngIf="thereAreViews"
+                        [disabled]="!viewSelected"
+                        (click)="openContainer('.modification-view-container','div.view-options')">Modificar
+                        Ventana</button>
+                    <button class="btn--cancel remove" id="removeViewButton" static *ngIf="thereAreViews"
+                        [disabled]="!viewSelected" (click)="removeViewSelected()">Eliminar Ventana</button>
+                </div>
             </div>
         </div>
     </div>
     <div class="view-options">
-        <button class="btn--primary add" id="newViewButton" static
-            (click)="openContainer('.creation-view-container','.view-options>button#newViewButton')">Nueva
-            Ventana</button>
-        <button class="btn--primary modify" id="modifyViewButton" static *ngIf="thereAreViews" disabled>Modificar
-            Ventana</button>
+        <button class="btn--primary modify" id="removeViewButton" static *ngIf="thereAreViews"
+            [disabled]="!viewSelected" (click)="null">Editar componentes de la ventana seleccionada</button>
     </div>
 
     <div class="creation-view-container" style="display: none;">
         <fieldset>
             <legend>Creación de ventana</legend>
-            <div class="creation-view-form">
+            <div class="view-form">
                 <div class="input-group">
                     <label for="name">Name</label>
-                    <input type="text" id="name" [(ngModel)]="newView.name.value">
+                    <input type="text" id="name" [(ngModel)]="newView.name" autocomplete="off">
                 </div>
 
                 <div class="input-group">
@@ -33,18 +41,56 @@
 
                 <div class="input-group">
                     <label for="description">Description</label>
-                    <textarea id="description" cols="40" rows="4" [(ngModel)]="newView.description.value"></textarea>
+                    <textarea id="description" cols="40" rows="4" [(ngModel)]="newView.description"></textarea>
                 </div>
 
 
             </div>
             <div class="button-group">
                 <button class="btn--primary save" static (click)="createNewView()"
-                    [disabled]="!(newView.name.value.trim() && newView.description.value.trim())">Crear Ventana</button>
+                    [disabled]="!(newView.name.trim() && newView.description.trim())">Crear Ventana</button>
                 <button class="btn--default clear" static (click)="cleanNewViewForm()">Limpiar datos</button>
                 <button class="btn--cancel" static
-                    (click)="closeContainer('.creation-view-container','.view-options>button#newViewButton')">Cancelar</button>
+                    (click)="closeContainer('.creation-view-container','div.view-options')">Cancelar</button>
             </div>
         </fieldset>
+    </div>
+    <div class="modification-view-container" style="display: none;">
+        <fieldset *ngIf="viewSelected">
+            <legend>Creación de ventana</legend>
+            <div class="view-form">
+                <div class="input-group">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" [(ngModel)]="viewSelected.name" autocomplete="off">
+                </div>
+
+                <div class="input-group">
+                    <label for="usingFiltroMayores">UsaFiltroMayores</label>
+                    <input type="checkbox" id="usingFiltroMayores" togglebutton
+                        [(ngModel)]="viewSelected.usingFiltroMayores">
+                </div>
+
+                <div class="input-group">
+                    <label for="description">Description</label>
+                    <textarea id="description" cols="40" rows="4" [(ngModel)]="viewSelected.description"></textarea>
+                </div>
+            </div>
+            <div class="button-group">
+                <button class="btn--primary save" static (click)="null"
+                    [disabled]="!(viewSelected.name.trim() && viewSelected.description.trim())">Modificar
+                    Ventana</button>
+                <button class="btn--cancel" static
+                    (click)="closeContainer('.modification-view-container','div.view-options')">Cancelar</button>
+            </div>
+        </fieldset>
+    </div>
+    <div class="components-view-container">
+        <div class="component-aside"></div>
+        <div class="section">
+            <div class="crud-data"></div>
+            <div class="simulator">
+                <view-simulator [stream]="streamSimulator"></view-simulator>
+            </div>
+        </div>
     </div>
 </div>
